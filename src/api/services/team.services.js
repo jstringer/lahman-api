@@ -1,4 +1,4 @@
-const db = require('../../utilities/db');
+const db = require('../../../utilities/db');
 
 const getTeamByName = function(name) {
     return db('Baseball.Teams').select().where('name', name);
