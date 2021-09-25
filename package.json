@@ -30,7 +30,9 @@
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "routing-controllers": "^0.9.0",
-    "typeorm": "^0.2.37"
+    "typedi": "^0.10.0",
+    "typeorm": "^0.2.37",
+    "typeorm-typedi-extensions": "^0.4.1"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.1",
