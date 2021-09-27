@@ -1,18 +1,28 @@
-import { Service } from "typedi";
-import { InjectRepository } from "typeorm-typedi-extensions";
+import { getCustomRepository } from "typeorm";
 import { PeopleRepository } from "../../database/repositories/PeopleRepository";
 import { People } from "../models/People";
 
-@Service()
 export class PeopleService {
-  constructor(
-    @InjectRepository() private readonly peopleRepository: PeopleRepository) 
-  {}
+  private readonly peopleRepository: PeopleRepository; 
+  constructor() {
+    this.peopleRepository = getCustomRepository(PeopleRepository);
+  }
 
-  public findByPlayerId(playerId: string): Promise<People> | Promise<undefined> {
-    if (playerId) {
+  public findByPlayerId(playerIdSearch: string): Promise<People> | Promise<undefined> {
+    if (playerIdSearch) {
+      const searchFields = {
+        playerId: playerIdSearch
+      }
+      return this.peopleRepository.getOneByFields(searchFields);
     }
   }
 
-  public findByFirstAndLastName
+  public findByFirstAndLastName(firstNameSearch: string, lastNameSearch: string): Promise<People> | Promise<undefined> {
+    const searchFields = {
+      nameFirst: firstNameSearch,
+      nameLast: lastNameSearch
+    }
+    return this.peopleRepository.getOneByFields(searchFields);
+  }
+  
 }

@@ -1,24 +1,31 @@
 import { EntityRepository, Repository } from "typeorm";
-import { Service } from "typedi";
 import { People } from "../../api/models/People";
+import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 
 /**
  * Repository class for retrieving, updating, inserting, and deleting entities of type People
  * from the database.
  */
-@Service()
 @EntityRepository(People)
 export class PeopleRepository extends Repository<People> {
+
+  private getColumnNames(): string[] {
+    let columnNames = [];
+    this.metadata.columns.forEach((columnMetadata => {
+      columnNames.push(columnMetadata.propertyName);
+    }));
+    return columnNames;
+  }
 
   public getById(id: number): Promise<People> | Promise<undefined> {
     return this.getById(id);
   }
 
-  public getOneByFields(searchFields: {[field: string] : {value: string | number}}): Promise<People> | Promise<undefined> {
+  public getOneByFields(searchFields: { [key: string] : string | number }): Promise<People> {
     return this.findOne(searchFields);
   }
 
-  public getManyByFields(searchFields: {[field: string] : {value: string | number}}): Promise<People[]> | Promise<undefined>  {
+  public getManyByFields(searchFields: { [key: string] : string | number }): Promise<People[]> {
     return this.find(searchFields);
   }
 
