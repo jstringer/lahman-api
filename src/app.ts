@@ -1,8 +1,6 @@
 import { createExpressServer, useContainer } from 'routing-controllers';
 import { Connection, createConnection } from 'typeorm';
-import { Container } from 'typedi';
 import { PeopleController } from './api/controllers/PeopleController';
-import path, { resolve } from 'path';
 import * as Reflect from 'reflect-metadata';
 import { json } from 'body-parser';
 import morgan from 'morgan';
