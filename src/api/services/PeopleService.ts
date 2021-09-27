@@ -11,7 +11,7 @@ export class PeopleService {
   public findByPlayerId(playerIdSearch: string): Promise<People> | Promise<undefined> {
     if (playerIdSearch) {
       const searchFields = {
-        playerId: playerIdSearch
+        playerID: playerIdSearch
       }
       return this.peopleRepository.getOneByFields(searchFields);
     }

@@ -7,7 +7,8 @@ import { Pitching } from "./Pitching";
 @Service()
 @Entity({
    database: "lahman_db",
-   schema: "Baseball"
+   schema: "Baseball",
+   name: "People"
 })
 export class People {
    @PrimaryColumn("text")

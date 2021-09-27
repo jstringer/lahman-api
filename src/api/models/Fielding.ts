@@ -48,7 +48,7 @@ export class Fielding {
   @Column("integer")
   public E: number;
 
-  @Column("intger")
+  @Column("integer")
   public DP: number;
 
   @Column("integer")
