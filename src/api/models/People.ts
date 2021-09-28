@@ -1,10 +1,8 @@
 import {Entity, Column, PrimaryColumn, OneToMany } from "typeorm";
-import { Service } from 'typedi';
 import { Batting } from "./Batting";
 import { Fielding } from "./Fielding";
 import { Pitching } from "./Pitching";
 
-@Service()
 @Entity({
    database: "lahman_db",
    schema: "Baseball",
