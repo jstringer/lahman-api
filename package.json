@@ -1,17 +1,18 @@
 {
   "name": "baseball-stats-index",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A historical baseball stats viewer",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "tsc && nodemon dist/app.js",
+    "clean": "rm -r dist/*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jstringer/baseball-stats-index.git"
   },
-  "author": "Jack Stringer & Joseph Wells",
+  "author": "Jack Stringer",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jstringer/baseball-stats-index/issues"
@@ -19,14 +20,27 @@
   "homepage": "https://github.com/jstringer/baseball-stats-index#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "class-transformer": "^0.3.1",
+    "class-validator": "^0.12.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "knex": "^0.21.15",
     "morgan": "^1.10.0",
-    "pg": "^8.5.1"
+    "multer": "^1.4.3",
+    "pg": "^8.5.1",
+    "reflect-metadata": "^0.1.13",
+    "routing-controllers": "^0.9.0",
+    "typedi": "^0.10.0",
+    "typeorm": "^0.2.37",
+    "typeorm-typedi-extensions": "^0.4.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.6"
+    "@types/body-parser": "^1.19.1",
+    "@types/express": "^4.17.13",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^16.9.6",
+    "nodemon": "^2.0.6",
+    "typescript": "^4.4.3"
   }
 }
