@@ -8,9 +8,23 @@ export class PeopleService {
     this.peopleRepository = getCustomRepository(PeopleRepository);
   }
 
-  public findByPlayerId(playerIdSearch: string): Promise<People | People[]> {  
-    return this.peopleRepository.getByPlayerId(playerIdSearch);
+  public async getById(id: number): Promise<People> {
+    try {
+      let result = await this.peopleRepository.findById(id);
+      return result;
+    } catch (error) {
+      console.error(error);
+      return undefined;
+    }
   }
-
+  public async getByPlayerId(playerIdSearch: string): Promise<People | People[]> {  
+    try {
+    let result = await this.peopleRepository.findByPlayerId(playerIdSearch);
+    return result;
+    } catch (error) {
+      console.log(error);
+      return undefined;
+    }
+  }
   
 }

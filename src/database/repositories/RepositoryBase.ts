@@ -1,4 +1,5 @@
-import { AbstractRepository, EntityMetadata } from "typeorm";
+import { AbstractRepository, EntityTarget } from "typeorm";
+import { plainToClass } from "class-transformer";
 import { QueryOptions } from '../QueryOptions';
 /**
  * Represents a 
@@ -19,16 +20,6 @@ export abstract class RepositoryBase<T> extends AbstractRepository<T> {
     return this.repository.findOne(searchOptions);
   }
 
-  public findByOptions(searchOptions: Options): Promise<T | T[] | undefined> {
-    let validator = new QueryOptions(this.repository.metadata);
-    if (!validator.validateQuery(searchOptions)) {
-      return undefined;
-    }
-    else {
-      return this.repository.find(searchOptions);
-    }
-  }
-
   public async exists(entity: T): Promise<Boolean> {
     const result = await this.repository.getId(entity);
     if (result > 0) {
@@ -38,6 +29,10 @@ export abstract class RepositoryBase<T> extends AbstractRepository<T> {
       return false;
     }
   }
+
+  //TODO: refactor this to instantiate an instance of T and validate against it,
+  //rather than repeating code in every other repo class
+  public abstract findByOptions(searchOptions: Options): Promise<T | T[] | undefined>
 
   public abstract upsert(toInsert: T): Promise<T>
 
