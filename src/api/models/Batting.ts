@@ -3,7 +3,8 @@ import { People } from "./People";
 
 @Entity({
   database: "lahman_db",
-  schema: "Baseball"
+  schema: "Baseball",
+  name: "Batting"
 })
 export class Batting {
   @PrimaryGeneratedColumn()

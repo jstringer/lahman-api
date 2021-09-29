@@ -1,48 +1,26 @@
 import { EntityRepository, Repository } from "typeorm";
+import { RepositoryBase } from "./RepositoryBase";
 import { People } from "../../api/models/People";
-import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 
 /**
  * Repository class for retrieving, updating, inserting, and deleting entities of type People
  * from the database.
  */
 @EntityRepository(People)
-export class PeopleRepository extends Repository<People> {
-
-  private getColumnNames(): string[] {
-    let columnNames = [];
-    this.metadata.columns.forEach((columnMetadata => {
-      columnNames.push(columnMetadata.propertyName);
-    }));
-    return columnNames;
+export class PeopleRepository extends RepositoryBase<People> {
+  
+  public findByPlayerId(playerId: string): Promise<People> {
+    return this.repository.findOne({playerID: playerId});
   }
 
-  public getById(id: number): Promise<People> | Promise<undefined> {
-    return this.getById(id);
+  //TODO: figure out Relations
+  public upsert(toInsert: People): Promise<People> {
+    return this.repository.save(toInsert)
   }
 
-  public getOneByFields(searchFields: { [key: string] : string | number }): Promise<People> {
-    return this.findOne(searchFields);
+  //TODO: figure out Relations
+  public remove(toRemove: People): Promise<People> {
+    return this.remove(toRemove);
   }
-
-  public getManyByFields(searchFields: { [key: string] : string | number }): Promise<People[]> {
-    return this.find(searchFields);
-  }
-
-  /**
-   * Inserts a single People entity into the database. 
-   */
-  public insertPerson(toInsert: People): Promise<People> {
-    return this.save(toInsert);
-  }
-
-  /**
-   * Inserts an array of People entities into the database.  
-   */
-  public insertPeople(toInsert: People[]): Promise<People[]> {
-    return this.save(toInsert);
-  }
-
-  //TODO: Delete player
 
 }

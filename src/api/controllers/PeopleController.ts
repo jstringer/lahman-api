@@ -9,7 +9,10 @@ export class PeopleController {
 
   @Get('/player/:playerId')
   public getByPlayerId(@Param('playerId') playerId: string) {
-    console.log("in here");
+    //Check to see if additional querystring params exist. If not:
     return this.peopleService.findByPlayerId(playerId);
+    //Otherwise, construct an object with those params, including the playerID, and pass to
+    //the service method
+    
   }
 }

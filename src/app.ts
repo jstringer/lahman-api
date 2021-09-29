@@ -15,12 +15,12 @@ const bootstrapApplication = async () => {
   try {
     const connection: Connection = await setupDbConnection();
     const app = createExpressServer({
+      cors: true,
       routePrefix: '/api',
       controllers: [PeopleController]
     });
 
-    app.use(cors());
-    app.use(json());
+    //app.use(json());
     app.use(morgan('dev'));
 
     app.listen(env.app.port, () =>{

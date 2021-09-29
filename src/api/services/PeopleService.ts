@@ -8,21 +8,9 @@ export class PeopleService {
     this.peopleRepository = getCustomRepository(PeopleRepository);
   }
 
-  public findByPlayerId(playerIdSearch: string): Promise<People> | Promise<undefined> {
-    if (playerIdSearch) {
-      const searchFields = {
-        playerID: playerIdSearch
-      }
-      return this.peopleRepository.getOneByFields(searchFields);
-    }
+  public findByPlayerId(playerIdSearch: string): Promise<People | People[]> {  
+    return this.peopleRepository.getByPlayerId(playerIdSearch);
   }
 
-  public findByFirstAndLastName(firstNameSearch: string, lastNameSearch: string): Promise<People> | Promise<undefined> {
-    const searchFields = {
-      nameFirst: firstNameSearch,
-      nameLast: lastNameSearch
-    }
-    return this.peopleRepository.getOneByFields(searchFields);
-  }
   
 }
