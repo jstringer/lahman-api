@@ -20,16 +20,16 @@ export class BattingService {
     }
   }
 
-  public async getByOptions(options: ObjectLiteral): Promise<Batting[] | Batting> {
+  public async getByOptions(options: Batting): Promise<Batting[] | Batting | undefined> {
     try {
-      let result = await this.battingRepository.findByOptions(options);
+      let result = await this.battingRepository.find(options);
     } catch (error) {
       console.log(error);
       return undefined;
     }
   }
 
-  public async getByPlayerId(playerId: string): Promise<Batting | Batting[]> {
+  public async getByPlayerId(playerId: string): Promise<Batting | Batting[] | undefined> {
     try {
       let result = await this.battingRepository.findByPlayerId(playerId);
       return result;

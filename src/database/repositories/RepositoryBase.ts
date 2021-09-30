@@ -1,6 +1,4 @@
-import { AbstractRepository, EntityTarget } from "typeorm";
-import { plainToClass } from "class-transformer";
-import { QueryOptions } from '../QueryOptions';
+import { Repository, EntityTarget } from "typeorm";
 /**
  * Represents a 
  */
@@ -8,7 +6,7 @@ type Options = {
   [key : string] : string | number;
 }
 
-export abstract class RepositoryBase<T> extends AbstractRepository<T> {
+export abstract class RepositoryBase<T> extends Repository<T> {
   
   /**
    * Gets the Entity by its ID. Returns undefined if no entity matches
@@ -17,11 +15,11 @@ export abstract class RepositoryBase<T> extends AbstractRepository<T> {
     let searchOptions = {
       "id" : id
     }
-    return this.repository.findOne(searchOptions);
+    return this.findOne(searchOptions);
   }
 
   public async exists(entity: T): Promise<Boolean> {
-    const result = await this.repository.getId(entity);
+    const result = await this.getId(entity);
     if (result > 0) {
       return true;
     }
@@ -29,13 +27,5 @@ export abstract class RepositoryBase<T> extends AbstractRepository<T> {
       return false;
     }
   }
-
-  //TODO: refactor this to instantiate an instance of T and validate against it,
-  //rather than repeating code in every other repo class
-  public abstract findByOptions(searchOptions: Options): Promise<T | T[] | undefined>
-
-  public abstract upsert(toInsert: T): Promise<T>
-
-  public abstract remove(toRemove: T): Promise<T>
 
 }

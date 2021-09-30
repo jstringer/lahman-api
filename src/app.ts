@@ -1,12 +1,9 @@
 import { createExpressServer } from 'routing-controllers';
 import { Connection } from 'typeorm';
 import { setupDbConnection } from './database/DbConnection';
-import { PeopleController } from './api/controllers/PeopleController';
-import * as Reflect from 'reflect-metadata';
+import path from 'path';
 import { env } from './env';
-import { json } from 'body-parser';
 import morgan from 'morgan';
-import cors from 'cors';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -17,7 +14,8 @@ const bootstrapApplication = async () => {
     const app = createExpressServer({
       cors: true,
       routePrefix: '/api',
-      controllers: [PeopleController]
+      controllers: [path.join(__dirname + '/api/controllers/*.js')],
+      classTransformer: true
     });
 
     //app.use(json());

@@ -8,21 +8,30 @@ export class PeopleService {
     this.peopleRepository = getCustomRepository(PeopleRepository);
   }
 
-  public async getById(id: number): Promise<People> {
+  public async getById(id: number): Promise<People | undefined> {
     try {
       let result = await this.peopleRepository.findById(id);
       return result;
     } catch (error) {
-      console.error(error);
+      console.log(error);
       return undefined;
     }
   }
-  public async getByPlayerId(playerIdSearch: string): Promise<People | People[]> {  
+  public async getByPlayerId(playerIdSearch: string): Promise<People | People[] | undefined> {  
     try {
     let result = await this.peopleRepository.findByPlayerId(playerIdSearch);
     return result;
     } catch (error) {
       console.log(error);
+      return undefined;
+    }
+  }
+  public async getBySearchOptions(searchOptions: People): Promise<People | People[] | undefined> {
+    try {
+      let result = await this.peopleRepository.find(searchOptions);
+      return result;
+    } catch (err) {
+      console.log(err);
       return undefined;
     }
   }

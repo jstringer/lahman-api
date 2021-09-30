@@ -8,6 +8,8 @@ import { People } from "./People";
   schema: "Baseball"
 })
 export class Pitching {
+  constructor() {}
+
   @PrimaryGeneratedColumn()
   @IsDefined()
   public id: number;
