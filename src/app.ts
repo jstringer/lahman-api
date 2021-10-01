@@ -1,6 +1,6 @@
 import { createExpressServer } from 'routing-controllers';
 import { Connection } from 'typeorm';
-import { setupDbConnection } from './database/DbConnection';
+import { setupDbConnection } from './database/lib/DbConnection';
 import path from 'path';
 import { env } from './env';
 import morgan from 'morgan';

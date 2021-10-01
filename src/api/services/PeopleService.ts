@@ -1,39 +1,23 @@
-import { getCustomRepository } from "typeorm";
-import { PeopleRepository } from "../../database/repositories/PeopleRepository";
+import { getCustomRepository, getRepository, Repository } from "typeorm";
 import { People } from "../models/People";
 
 export class PeopleService {
-  private readonly peopleRepository: PeopleRepository; 
+  private readonly peopleRepository: Repository<People>; 
   constructor() {
-    this.peopleRepository = getCustomRepository(PeopleRepository);
+    this.peopleRepository = getRepository(People);
   }
-
-  public async getById(id: number): Promise<People | undefined> {
+  
+  public async getByPlayerId(playerIdSearch: string): Promise<People | undefined> {  
     try {
-      let result = await this.peopleRepository.findById(id);
-      return result;
-    } catch (error) {
-      console.log(error);
-      return undefined;
-    }
-  }
-  public async getByPlayerId(playerIdSearch: string): Promise<People | People[] | undefined> {  
-    try {
-    let result = await this.peopleRepository.findByPlayerId(playerIdSearch);
+    let result = await this.peopleRepository.findOne({
+      playerID: playerIdSearch
+    });
     return result;
     } catch (error) {
       console.log(error);
       return undefined;
     }
   }
-  public async getBySearchOptions(searchOptions: People): Promise<People | People[] | undefined> {
-    try {
-      let result = await this.peopleRepository.find(searchOptions);
-      return result;
-    } catch (err) {
-      console.log(err);
-      return undefined;
-    }
-  }
-  
+
+  //Create player
 }

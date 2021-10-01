@@ -1,19 +1,18 @@
 import { JsonController, QueryParams, Param, Body, Get, Post, Put, Delete, Req } from 'routing-controllers';
-import { ObjectLiteral } from '../../database/QueryOptions';
 import { BattingService } from '../services/BattingService';
-import { Batting } from '../models/Batting'
+import { StatsQuery } from './querys/StatsQuery';
 import { Request, response } from 'express';
+import { get } from 'http';
 
 @JsonController()
-export class BattingController {
+export class StatsController {
   constructor(
-    private readonly battingService: BattingService = new BattingService()
+    private readonly battingService: BattingService = new BattingService() //Update this to be dependency injected
   ) {}
   
-  @Get('/stats/batting/')
-  public async get(@QueryParams() query?: Batting) {
+  @Get('/stats/batting')
+  public async getBattingStats(@QueryParams() query?: StatsQuery) {
     let result;
-
     if (query) {
       result = await this.battingService.getByOptions(query);
       if (result !== undefined) {
@@ -24,4 +23,7 @@ export class BattingController {
       //return paginated data
     }
   }
+
+  @Post('/stats/batting/:playerId')
+  public async createBattingStats() {}
 }
