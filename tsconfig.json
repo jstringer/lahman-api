@@ -6,7 +6,8 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "sourceMap": true 
+    "sourceMap": true,
+    "types": ["reflect-metadata"]
   },
   "include": ["src/**/*"]
 }

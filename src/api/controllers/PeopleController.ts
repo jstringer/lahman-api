@@ -21,7 +21,7 @@ export class PeopleController {
   }
 
   @Get('/player')
-  public async getByPlayerIdAndParams(@QueryParams({validate: {skipMissingProperties: true}}) query: People, @Req() request: Request, @Res() response: Response) {
+  public async getByParams(@QueryParams({validate: {skipMissingProperties: true}}) query: People, @Req() request: Request, @Res() response: Response) {
     let result = await this.peopleService.getBySearchOptions(query);
     
     if (result !== undefined) {

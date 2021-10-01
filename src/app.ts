@@ -5,6 +5,7 @@ import path from 'path';
 import { env } from './env';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import "reflect-metadata";
 
 dotenv.config();
 
@@ -18,7 +19,6 @@ const bootstrapApplication = async () => {
       classTransformer: true
     });
 
-    //app.use(json());
     app.use(morgan('dev'));
 
     app.listen(env.app.port, () =>{

@@ -1,8 +1,8 @@
-import { JsonController, QueryParams, Param, Body, Get, Post, Put, Delete } from 'routing-controllers';
+import { JsonController, QueryParams, Param, Body, Get, Post, Put, Delete, Req } from 'routing-controllers';
 import { ObjectLiteral } from '../../database/QueryOptions';
 import { BattingService } from '../services/BattingService';
 import { Batting } from '../models/Batting'
-import { response } from 'express';
+import { Request, response } from 'express';
 
 @JsonController()
 export class BattingController {

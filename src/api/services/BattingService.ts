@@ -1,5 +1,4 @@
 import { getCustomRepository } from "typeorm";
-import { ObjectLiteral } from "../../database/QueryOptions";
 import { BattingRepository } from "../../database/repositories/BattingRepository";
 import { Batting } from "../models/Batting";
 
@@ -23,6 +22,7 @@ export class BattingService {
   public async getByOptions(options: Batting): Promise<Batting[] | Batting | undefined> {
     try {
       let result = await this.battingRepository.find(options);
+      return result;
     } catch (error) {
       console.log(error);
       return undefined;

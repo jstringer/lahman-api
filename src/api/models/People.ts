@@ -5,12 +5,17 @@ import { Batting } from "./Batting";
 import { Fielding } from "./Fielding";
 import { Pitching } from "./Pitching";
 
+export interface IEntity {
+  id?: number;
+  playerID?: string;
+}
+
 @Entity({
    database: "lahman_db",
    schema: "Baseball",
    name: "People"
 })
-export class People {
+export class People implements IEntity {
    @PrimaryColumn("text")
    @IsNotEmpty()
    public playerID: string;
