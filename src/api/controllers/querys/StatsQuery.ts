@@ -1,5 +1,5 @@
 import { IsInt, Min, Max, IsString } from "class-validator";
-import { ObjectLiteral } from "../../../database/lib/Utils";
+import { FindConditions } from "typeorm";
 
 export class StatsQuery {
   @IsString()

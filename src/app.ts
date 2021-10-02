@@ -6,8 +6,11 @@ import { env } from './env';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import "reflect-metadata";
+import { useContainer } from 'class-validator';
+import Container from 'typedi';
 
 dotenv.config();
+useContainer(Container);
 
 const bootstrapApplication = async () => {
   try {

@@ -3,11 +3,13 @@ import { BattingService } from '../services/BattingService';
 import { StatsQuery } from './querys/StatsQuery';
 import { Request, response } from 'express';
 import { get } from 'http';
+import { Service } from 'typedi';
 
+@Service()
 @JsonController()
 export class StatsController {
   constructor(
-    private readonly battingService: BattingService = new BattingService() //Update this to be dependency injected
+    private readonly battingService: BattingService
   ) {}
   
   @Get('/stats/batting')

@@ -3,6 +3,4 @@ import { Pitching } from '../models/Pitching';
 
 @JsonController()
 export class PitchingController {
-  constructor(
-  )
 }

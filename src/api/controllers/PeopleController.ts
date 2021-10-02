@@ -1,12 +1,14 @@
 import { Request, Response } from 'express';
 import { JsonController, Param, Req, Res, Body, Get, Post, Put, Delete, QueryParams } from 'routing-controllers';
+import { Service } from 'typedi';
 import { People } from '../models/People';
 import { PeopleService } from '../services/PeopleService';
 
+@Service()
 @JsonController()
 export class PeopleController {
   constructor(
-    private readonly peopleService: PeopleService = new PeopleService()
+    private readonly peopleService: PeopleService
   ) {}
 
   @Get('/player/:playerId')

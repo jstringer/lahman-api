@@ -1,35 +1,16 @@
 import { getRepository, Repository } from "typeorm";
+import { InjectRepository } from "typeorm-typedi-extensions";
 import { StatsQuery } from "../controllers/querys/StatsQuery";
 import { Pitching } from "../models/Pitching";
+import { BaseService } from "./BaseService";
 
-export class PitchingService {
-  private readonly pitchingRepository: Repository<Pitching>
-
-  constructor() {
-    this.pitchingRepository = getRepository(Pitching);
+export class PitchingService extends BaseService<Pitching> {
+  constructor(
+    @InjectRepository(Pitching) private readonly pitchingRepository: Repository<Pitching>
+  ) {
+    super(pitchingRepository);
   }
   
-  public async getById(id: number): Promise<Pitching[] | undefined> {
-    try { 
-      let result = await this.pitchingRepository.findByIds([id]);
-      return result;
-    } catch (error) {
-      console.log(error);
-      return undefined;
-    }
-  }
-
-  public async getByOptions(options: StatsQuery): Promise<Pitching[] | Pitching > {
-    let findOptions = options.transform(); 
-    try {
-      let result = await this.pitchingRepository.find(findOptions);
-      return result;
-    } catch (error) {
-      console.log(error);
-      return undefined;
-    }
-  }
-
   public async getByPlayerId(playerId: string): Promise<Pitching | Pitching[]> {
     try {
       let result = await this.pitchingRepository.find({ playerID: playerId });

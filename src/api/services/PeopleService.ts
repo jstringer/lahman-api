@@ -1,16 +1,20 @@
+import { Service } from "typedi";
 import { getCustomRepository, getRepository, Repository } from "typeorm";
+import { InjectRepository } from "typeorm-typedi-extensions";
 import { People } from "../models/People";
+import { BaseService } from "./BaseService";
 
-export class PeopleService {
-  private readonly peopleRepository: Repository<People>; 
-  constructor() {
-    this.peopleRepository = getRepository(People);
+export class PeopleService extends BaseService<People> {
+  constructor(
+    @InjectRepository(People) private readonly peopleRepository: Repository<People>
+  ) {
+    super(peopleRepository);
   }
   
-  public async getByPlayerId(playerIdSearch: string): Promise<People | undefined> {  
+  public async getByPlayerId(playerId: string): Promise<People | undefined> {  
     try {
     let result = await this.peopleRepository.findOne({
-      playerID: playerIdSearch
+      playerID: playerId
     });
     return result;
     } catch (error) {
