@@ -1,4 +1,4 @@
-import { createExpressServer } from 'routing-controllers';
+import { createExpressServer, useContainer } from 'routing-controllers';
 import { Connection } from 'typeorm';
 import { setupDbConnection } from './database/lib/DbConnection';
 import path from 'path';
@@ -6,14 +6,13 @@ import { env } from './env';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import "reflect-metadata";
-import { useContainer } from 'class-validator';
 import Container from 'typedi';
 
 dotenv.config();
-useContainer(Container);
 
 const bootstrapApplication = async () => {
   try {
+    useContainer(Container);
     const connection: Connection = await setupDbConnection();
     const app = createExpressServer({
       cors: true,

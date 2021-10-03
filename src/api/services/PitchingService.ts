@@ -1,9 +1,10 @@
-import { getRepository, Repository } from "typeorm";
+import { Service } from "typedi";
+import { Repository } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
-import { StatsQuery } from "../controllers/querys/StatsQuery";
-import { Pitching } from "../models/Pitching";
+import { Pitching } from "../../database/models/Pitching";
 import { BaseService } from "./BaseService";
 
+@Service()
 export class PitchingService extends BaseService<Pitching> {
   constructor(
     @InjectRepository(Pitching) private readonly pitchingRepository: Repository<Pitching>

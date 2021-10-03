@@ -1,8 +1,7 @@
 import { JsonController, QueryParams, Param, Body, Get, Post, Put, Delete, Req } from 'routing-controllers';
 import { BattingService } from '../services/BattingService';
-import { StatsQuery } from './querys/StatsQuery';
+import { SearchQuery } from './querys/SearchQuery';
 import { Request, response } from 'express';
-import { get } from 'http';
 import { Service } from 'typedi';
 
 @Service()
@@ -13,19 +12,16 @@ export class StatsController {
   ) {}
   
   @Get('/stats/batting')
-  public async getBattingStats(@QueryParams() query?: StatsQuery) {
+  public async getBattingStats(@QueryParams() query?: SearchQuery) {
     let result;
-    if (query) {
+    if (Object.keys(query).length >= 1) {
       result = await this.battingService.getByOptions(query);
       if (result !== undefined) {
         return response.status(200).send(result);
       }
     }
     else {
-      //return paginated data
+      return response.send("Paginated data...");
     }
   }
-
-  @Post('/stats/batting/:playerId')
-  public async createBattingStats() {}
 }

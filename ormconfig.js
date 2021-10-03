@@ -12,6 +12,6 @@ module.exports = {
   schema: process.env.DB_SCHEMA,
   applicationName: process.env.APP_NAME,
   entities: [
-    "dist/api/models/*.js"  
+    "dist/database/models/*.js"  
   ]
 }

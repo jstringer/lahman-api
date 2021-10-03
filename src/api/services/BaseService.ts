@@ -1,6 +1,6 @@
 import { Service } from "typedi";
 import { Repository } from "typeorm";
-import { StatsQuery } from "../controllers/querys/StatsQuery";
+import { SearchQuery } from "../controllers/querys/SearchQuery";
 
 @Service()
 export abstract class BaseService<T> {
@@ -16,7 +16,7 @@ export abstract class BaseService<T> {
     } 
   }
 
-  public async getByOptions(options: StatsQuery): Promise<T | T[]> {
+  public async getByOptions(options: SearchQuery): Promise<T | T[]> {
     let findOptions = options.transform();
     try {
       let result = await this.repository.find(findOptions);

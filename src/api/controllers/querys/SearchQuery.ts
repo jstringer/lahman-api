@@ -1,19 +1,21 @@
-import { IsInt, Min, Max, IsString } from "class-validator";
-import { FindConditions } from "typeorm";
+import { IsInt, Min, Max, IsString, IsOptional } from "class-validator";
 
-export class StatsQuery {
+export class SearchQuery {
+  @IsOptional() 
   @IsString()
   playerId: string;
 
+  @IsOptional()
   @IsInt()
   @Min(1871)
   @Max(2021)
   year: number;
 
+  @IsOptional()
   @IsString()
   teamId: string;
 
-  public transform() {
+  public transform(): Object {
     let findOptions = {
       where: {}
     }

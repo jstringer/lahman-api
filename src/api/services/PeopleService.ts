@@ -1,9 +1,10 @@
 import { Service } from "typedi";
-import { getCustomRepository, getRepository, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
-import { People } from "../models/People";
+import { People } from "../../database/models/People";
 import { BaseService } from "./BaseService";
 
+@Service()
 export class PeopleService extends BaseService<People> {
   constructor(
     @InjectRepository(People) private readonly peopleRepository: Repository<People>
