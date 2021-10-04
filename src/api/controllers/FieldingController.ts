@@ -1,8 +1,9 @@
-import { Response } from 'express';
-import { JsonController, QueryParams, Param, Body, Get, Post, Put, Delete, Req, Res } from 'routing-controllers';
+import { Request, request, Response } from 'express';
+import { JsonController, QueryParams, Param, Body, Get, Post, Put, Delete, Req, Res, UseBefore } from 'routing-controllers';
 import { Service } from 'typedi';
+import { QueryFormatterMiddleware } from '../middleware/QueryFormatterMiddleware';
 import { FieldingService } from '../services/FieldingService';
-import { SearchQuery } from './querys/SearchQuery';
+import { StatsRequest } from './requests/StatsRequest';
 
 @Service()
 @JsonController()
@@ -10,10 +11,10 @@ export class FieldingController {
   private readonly fieldingService: FieldingService;
 
   @Get('/stats/fielding')
-  public async getFieldingStats(@QueryParams() query: SearchQuery, @Res() response: Response) {
-    let result;
-    if (Object.keys(query).length >= 1) {
-      result = await this.fieldingService.getByOptions(query);
+  @UseBefore(QueryFormatterMiddleware)
+  public async getFieldingStats(@Req() request: Request, @Res() response: Response) {
+    if (request.findOptions) {
+      let result = await this.fieldingService.getByOptions(request.findOptions);
       if (result !== undefined) {
         return response.status(200).send(result);
       }

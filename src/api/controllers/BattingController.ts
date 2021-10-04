@@ -1,7 +1,8 @@
-import { JsonController, QueryParams, Param, Body, Get, Post, Put, Delete, Req, Res } from 'routing-controllers';
+import { JsonController, QueryParams, Param, Body, Get, Post, Put, Delete, Req, Res, UseBefore } from 'routing-controllers';
 import { BattingService } from '../services/BattingService';
-import { SearchQuery } from './querys/SearchQuery';
+import { StatsRequest } from './requests/StatsRequest';
 import { Request, Response } from 'express';
+import { QueryFormatterMiddleware } from '../middleware/QueryFormatterMiddleware';
 import { Service } from 'typedi';
 
 @Service()
@@ -12,10 +13,10 @@ export class BattingController {
   ) {}
   
   @Get('/stats/batting')
-  public async getBattingStats(@QueryParams() query: SearchQuery, @Res() response: Response ) {
-    let result;
-    if (Object.keys(query).length >= 1) {
-      result = await this.battingService.getByOptions(query);
+  @UseBefore(QueryFormatterMiddleware)
+  public async getBattingStats(@Req() request: Request, @Res() response: Response) {
+    if (request.findOptions) {
+      let result = await this.battingService.getByOptions(request.findOptions);
       if (result !== undefined) {
         return response.status(200).send(result);
       }

@@ -7,6 +7,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "sourceMap": true,
+    "typeRoots": ["src/types"],
     "types": ["reflect-metadata"]
   },
   "include": ["src/**/*"]

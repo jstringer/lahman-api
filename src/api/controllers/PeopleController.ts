@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { JsonController, Param, Req, Res, Body, Get, Post, Put, Delete, QueryParams } from 'routing-controllers';
+import { JsonController, Param, Req, Res, Body, Get, Post, Put, Delete, UseBefore} from 'routing-controllers';
 import { Service } from 'typedi';
 import { PeopleService } from '../services/PeopleService';
 
@@ -9,9 +9,7 @@ export class PeopleController {
   constructor(private readonly peopleService: PeopleService) {}
 
   @Get('/player/:playerId')
-  public async getByPlayerId(@Param('playerId') playerId: string, 
-    @Res() response: Response,
-  ) {
+  public async getByPlayerId(@Param('playerId') playerId: string, @Res() response: Response) {
     let result = await this.peopleService.getByPlayerId(playerId);
 
     if (result !== undefined) {

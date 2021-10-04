@@ -1,8 +1,8 @@
-import { Response } from 'express';
-import { JsonController, QueryParams, Param, Body, Get, Post, Put, Delete, Req, Res } from 'routing-controllers';
+import { Request, Response } from 'express';
+import { JsonController, QueryParams, Param, Body, Get, Post, Put, Delete, Req, Res, UseBefore } from 'routing-controllers';
 import { Service } from 'typedi';
+import { QueryFormatterMiddleware } from '../middleware/QueryFormatterMiddleware';
 import { PitchingService } from '../services/PitchingService';
-import { SearchQuery } from './querys/SearchQuery';
 
 @Service()
 @JsonController()
@@ -10,10 +10,10 @@ export class PitchingController {
   private readonly pitchingService: PitchingService;
 
   @Get('/stats/pitching')
-  public async getPitchingStats(@QueryParams() query: SearchQuery, @Res() response: Response) {
-    let result;
-    if(Object.keys(query).length >= 1) {
-      result = await this.pitchingService.getByOptions(result);
+  @UseBefore(QueryFormatterMiddleware)
+  public async getPitchingStats(@Req() request: Request, @Res() response: Response) {
+    if(request.findOptions) {
+      let result = await this.pitchingService.getByOptions(request.findOptions);
       if (result !== undefined) {
         return response.status(200).send(result);
       }
