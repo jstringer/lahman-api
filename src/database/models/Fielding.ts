@@ -1,6 +1,6 @@
 import { Exclude, Type } from "class-transformer";
 import { IsIn, IsInstance, IsInt, IsNotEmpty, IsString, Max, Min } from "class-validator";
-import { Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { People } from "./People";
 
 @Entity({
@@ -13,6 +13,7 @@ export class Fielding {
   public id: number;
 
   @ManyToOne(() => People, people => people.fieldingStats)
+  @JoinColumn({ name: 'playerID', referencedColumnName: 'playerID' })
   @Type(() => People)
   @IsInstance(People)
   @Exclude({toPlainOnly: true})

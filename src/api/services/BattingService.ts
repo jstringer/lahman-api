@@ -14,7 +14,9 @@ export class BattingService extends BaseService<Batting> {
 
   public async getByPlayerId(playerId: string): Promise<Batting | Batting[] | undefined> {
     try {
-      let result = await this.battingRepository.find({ playerID: playerId });
+      let result = await this.battingRepository.find({ 
+        where: { player: {'playerID': playerId} }
+      });
       return result;
     } catch (error) {
       console.log(error);

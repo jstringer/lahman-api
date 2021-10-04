@@ -1,6 +1,6 @@
 import { Type } from "class-transformer";
 import { IsDefined, IsIn, IsInstance, IsInt, IsNumber, IsString } from "class-validator";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { People } from "./People";
 
 @Entity({
@@ -15,6 +15,7 @@ export class Pitching {
   public id: number;
 
   @ManyToOne(() => People, people => people.pitchingStats)
+  @JoinColumn({ name: 'playerID', referencedColumnName: 'playerID' })
   @Type(() => People)
   @IsInstance(People)
   public player: People;

@@ -1,6 +1,6 @@
 import { Exclude } from "class-transformer";
 import { IsInstance, IsInt, IsNotEmpty, IsString } from "class-validator";
-import { Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { People } from "./People";
 
 @Entity({
@@ -14,6 +14,7 @@ export class Batting {
   public id: number;
 
   @ManyToOne(() => People, people => people.battingStats)
+  @JoinColumn({name: 'playerID', referencedColumnName: 'playerID'})
   @IsInstance(People)
   @Exclude({toPlainOnly: true})
   player: People;

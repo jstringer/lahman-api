@@ -20,13 +20,13 @@ export class SearchQuery {
       where: {}
     }
     if (this.playerId) {
-      findOptions.where["playerID"] = this.playerId; 
+      findOptions.where['player'] = {'playerID': this.playerId};
     }
     if (this.year) {
       findOptions.where["yearID"] = this.year;
     }
     if (this.teamId) {
-      findOptions.where["teamID"] = this.teamId;
+      findOptions.where['team'] = {'teamID' : this.teamId};
     }
 
     return findOptions;
