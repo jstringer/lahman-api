@@ -1,13 +1,9 @@
 import { Exclude, Type } from "class-transformer";
-import { IsIn, IsInstance, IsInt, IsNotEmpty, IsString, Max, Min } from "class-validator";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
-import { People } from "./People";
+import { IsInstance, IsInt, IsNotEmpty, IsString, Min } from "class-validator";
+import { Column, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { People, Teams } from "../index";
 
-@Entity({
-  database: "lahman_db",
-  schema: "Baseball"
-})
-export class Fielding {
+export abstract class BaseFielding {
   @PrimaryGeneratedColumn()
   @IsNotEmpty()
   public id: number;
@@ -19,6 +15,10 @@ export class Fielding {
   @Exclude({toPlainOnly: true})
   public player: People;
 
+  @ManyToMany(() => Teams, teams => teams.fieldingStats)
+  @JoinColumn({ name: 'teamID', referencedColumnName: 'teamID'})
+  public teams: Teams[];
+
   @Column("text")
   @IsString()
   public playerID: string;
@@ -27,10 +27,6 @@ export class Fielding {
   @IsInt()
   @Min(1871)
   public yearID: number;
-
-  @Column("integer")
-  @IsInt()
-  public stint: number;
 
   @Column("text")
   @IsString()
@@ -42,53 +38,45 @@ export class Fielding {
 
   @Column("text")
   @IsString()
-  public Pos: string;
+  public POS: string;
 
-  @Column("integer")
+  @Column({ type: "integer", nullable: true })
   @IsInt()
   public G: number;
 
-  @Column("integer")
+  @Column({ type: "integer", nullable: true })
   @IsInt()
   public GS: number;
 
-  @Column("integer")
+  @Column({ type: "integer", nullable: true })
   @IsInt()
   public InnOuts: number;
 
-  @Column("integer")
+  @Column({ type: "integer", nullable: true })
   @IsInt()
   public PO: number;
 
-  @Column("integer")
+  @Column({ type: "integer", nullable: true })
   @IsInt()
   public A: number;
 
-  @Column("integer")
+  @Column({ type: "integer", nullable: true })
   @IsInt()
   public E: number;
 
-  @Column("integer")
+  @Column({ type: "integer", nullable: true })
   @IsInt()
   public DP: number;
 
-  @Column("integer")
+  @Column({ type: "integer", nullable: true })
   @IsInt()
   public PB: number;
 
-  @Column("integer")
-  @IsInt()
-  public WP: number;
-
-  @Column("integer")
+  @Column({ type: "integer", nullable: true })
   @IsInt()
   public SB: number;
 
-  @Column("integer")
+  @Column({ type: "integer", nullable: true })
   @IsInt()
   public CS: number;
-
-  @Column("integer")
-  @IsInt()
-  public ZR: number;
 }

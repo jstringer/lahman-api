@@ -3,7 +3,6 @@ import { JsonController, QueryParams, Param, Body, Get, Post, Put, Delete, Req, 
 import { Service } from 'typedi';
 import { QueryFormatterMiddleware } from '../middleware/QueryFormatterMiddleware';
 import { FieldingService } from '../services/FieldingService';
-import { StatsRequest } from './requests/StatsRequest';
 
 @Service()
 @JsonController()

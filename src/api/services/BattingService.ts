@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { Batting } from "../../database/models/Batting";
+import { Batting } from "../../database/entities/stats/Batting";
 import { BaseService } from "./BaseService";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { Service } from "typedi";

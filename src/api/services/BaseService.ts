@@ -1,6 +1,5 @@
 import { Service } from "typedi";
 import { FindConditions, Repository } from "typeorm";
-import { StatsRequest } from "../controllers/requests/StatsRequest";
 
 @Service()
 export abstract class BaseService<T> {

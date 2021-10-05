@@ -1,6 +1,5 @@
 import { JsonController, QueryParams, Param, Body, Get, Post, Put, Delete, Req, Res, UseBefore } from 'routing-controllers';
 import { BattingService } from '../services/BattingService';
-import { StatsRequest } from './requests/StatsRequest';
 import { Request, Response } from 'express';
 import { QueryFormatterMiddleware } from '../middleware/QueryFormatterMiddleware';
 import { Service } from 'typedi';

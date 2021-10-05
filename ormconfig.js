@@ -11,7 +11,9 @@ module.exports = {
   database: process.env.DB_DATABASE,
   schema: process.env.DB_SCHEMA,
   applicationName: process.env.APP_NAME,
-  entities: [
-    "dist/database/models/*.js"  
-  ]
+  entities: ["dist/database/entities/**/*"],
+  migrations: ["migration/*.js"],
+  cli: {
+    "migrationsDir": "migration"
+  }
 }
