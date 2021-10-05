@@ -24,7 +24,4 @@ export abstract class BaseService<T> {
       return undefined;
     }
   }
-
-  public abstract getByPlayerId(playerId: string): Promise<T | T[]> 
-
 }

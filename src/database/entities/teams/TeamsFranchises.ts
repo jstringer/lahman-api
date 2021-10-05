@@ -14,7 +14,6 @@ export class TeamsFranchises {
   public id: number; 
 
   @OneToMany(() => Teams, teams => teams.franchise)
-  @JoinColumn({name: 'franchID', referencedColumnName: 'franchID'})
   @Exclude({ toPlainOnly: true})
   public teams: Teams[];
   

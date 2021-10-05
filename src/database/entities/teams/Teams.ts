@@ -57,10 +57,10 @@ export class Teams {
   @Column("text")
   @IsString()
   public teamID: string;
-
+  
   @Column("text")
-  @IsString()
-  public franchID: string;
+  @IsNotEmpty()
+  public franchID: string
 
   @Column({ type: "char", nullable: true })
   @IsString()

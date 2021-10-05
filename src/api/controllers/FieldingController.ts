@@ -1,7 +1,7 @@
-import { Request, request, Response } from 'express';
+import { Request, Response } from 'express';
 import { JsonController, QueryParams, Param, Body, Get, Post, Put, Delete, Req, Res, UseBefore } from 'routing-controllers';
 import { Service } from 'typedi';
-import { QueryFormatterMiddleware } from '../middleware/QueryFormatterMiddleware';
+import { QueryValidatorMiddleware } from '../middleware/QueryValidatorMiddleware';
 import { FieldingService } from '../services/FieldingService';
 
 @Service()
@@ -10,7 +10,7 @@ export class FieldingController {
   private readonly fieldingService: FieldingService;
 
   @Get('/stats/fielding')
-  @UseBefore(QueryFormatterMiddleware)
+  @UseBefore(QueryValidatorMiddleware)
   public async getFieldingStats(@Req() request: Request, @Res() response: Response) {
     if (request.findOptions) {
       let result = await this.fieldingService.getByOptions(request.findOptions);

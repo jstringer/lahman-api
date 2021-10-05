@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { JsonController, QueryParams, Param, Body, Get, Post, Put, Delete, Req, Res, UseBefore } from 'routing-controllers';
 import { Service } from 'typedi';
-import { QueryFormatterMiddleware } from '../middleware/QueryFormatterMiddleware';
+import { QueryValidatorMiddleware } from '../middleware/QueryValidatorMiddleware';
 import { PitchingService } from '../services/PitchingService';
 
 @Service()
@@ -10,7 +10,7 @@ export class PitchingController {
   private readonly pitchingService: PitchingService;
 
   @Get('/stats/pitching')
-  @UseBefore(QueryFormatterMiddleware)
+  @UseBefore(QueryValidatorMiddleware)
   public async getPitchingStats(@Req() request: Request, @Res() response: Response) {
     if(request.findOptions) {
       let result = await this.pitchingService.getByOptions(request.findOptions);

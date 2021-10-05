@@ -6,6 +6,7 @@ export const setupDbConnection = async (): Promise<Connection> => {
   const config = await getConnectionOptions();
   try { 
     let connection = await createConnection(config);
+    console.log(`Connection ${connection.name} established. Driver: ${connection.driver}`);
     return connection;
   } catch (error) {
     //ToDo: retry a set number of times, better error logging.
