@@ -9,7 +9,7 @@ import { Service } from 'typedi';
 export class BattingController {
   constructor(
     private readonly battingService: BattingService
-  ) {}
+  ) {};
   
   @Get('/stats/batting')
   @UseBefore(QueryValidatorMiddleware)

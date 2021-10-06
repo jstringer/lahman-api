@@ -1,7 +1,7 @@
 import { Service } from "typedi";
 import { Repository } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
-import { Fielding } from "../../database/entities/stats/Fielding";
+import { Fielding } from "../../database/entities/stats";
 import { BaseService } from "./BaseService";
 
 @Service()

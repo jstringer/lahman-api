@@ -1,7 +1,7 @@
 import {Entity, Column, PrimaryColumn, OneToMany } from "typeorm";
 import { IsNotEmpty, IsDate, IsString, IsInt, IsArray } from "class-validator";
 import { Exclude, Type } from "class-transformer";
-import { Batting, Fielding, Pitching, BattingPost, PitchingPost, FieldingPost, FieldingOF, FieldingOFsplit } from "../index";
+import { Batting, BattingPost, Pitching, PitchingPost, Fielding, FieldingPost, FieldingOF, FieldingOFsplit} from "../stats";
 
 @Entity({
    database: "lahman_db",

@@ -7,7 +7,9 @@ import { PitchingService } from '../services/PitchingService';
 @Service()
 @JsonController()
 export class PitchingController {
-  private readonly pitchingService: PitchingService;
+  constructor(
+    private readonly pitchingService: PitchingService
+  ) {};
 
   @Get('/stats/pitching')
   @UseBefore(QueryValidatorMiddleware)

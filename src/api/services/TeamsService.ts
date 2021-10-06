@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { Teams } from "../../database/entities/teams/Teams";
+import { Teams } from "../../database/entities/teams";
 import { BaseService } from "./BaseService";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { Service } from "typedi";

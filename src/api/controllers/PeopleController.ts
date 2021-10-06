@@ -6,7 +6,9 @@ import { PeopleService } from '../services/PeopleService';
 @Service()
 @JsonController()
 export class PeopleController {
-  constructor(private readonly peopleService: PeopleService) {}
+  constructor(
+    private readonly peopleService: PeopleService
+  ) {};
 
   @Get('/player/:playerId')
   public async getByPlayerId(@Param('playerId') playerId: string, @Res() response: Response) {

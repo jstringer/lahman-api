@@ -1,7 +1,7 @@
 import { Exclude, Type } from "class-transformer";
-import { IsIn, IsInstance, IsInt, IsNotEmpty, IsNumber, IsString, Max, Min } from "class-validator";
+import { IsIn, IsInstance, IsInt, IsNotEmpty, IsNumber, IsString, Max, Min, IsDefined } from "class-validator";
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
-import { Batting, BattingPost, Fielding, FieldingPost, Pitching, PitchingPost, TeamsFranchises } from "../index";
+import { Batting, BattingPost, Pitching, PitchingPost, Fielding, FieldingPost } from '../stats'
 
 @Entity({
   database: "lahman_db",
@@ -237,5 +237,39 @@ export class Teams {
   @Column({ type: "text", nullable: true })
   @IsString()
   public teamIDretro: string;
+}
 
+@Entity({
+  database: "lahman_db",
+  schema: "Baseball",
+  name: "TeamsFranchises"
+})
+export class TeamsFranchises {
+  @PrimaryGeneratedColumn()
+  @IsDefined()
+  public id: number; 
+
+  @OneToMany(() => Teams, teams => teams.franchise)
+  @Exclude({ toPlainOnly: true})
+  public teams: Teams[];
+  
+  @PrimaryColumn({
+    type: "text",
+    unique: true,
+    nullable: false
+  })
+  @IsNotEmpty()
+  public franchID: string
+
+  @Column("text")
+  @IsString()
+  public franchName: string;
+
+  @Column("char")
+  @IsString()
+  public active: string;
+
+  @Column({ type: "text", nullable: true })
+  @IsString()
+  public NAassoc: string;
 }

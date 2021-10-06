@@ -7,7 +7,9 @@ import { FieldingService } from '../services/FieldingService';
 @Service()
 @JsonController()
 export class FieldingController {
-  private readonly fieldingService: FieldingService;
+  constructor(
+    private readonly fieldingService: FieldingService
+  ) {};
 
   @Get('/stats/fielding')
   @UseBefore(QueryValidatorMiddleware)
