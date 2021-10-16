@@ -2,19 +2,17 @@ import { Exclude, Type } from "class-transformer";
 import { IsIn, IsInstance, IsInt, IsNotEmpty, IsNumber, IsString, Max, Min, IsDefined } from "class-validator";
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Batting, BattingPost, Pitching, PitchingPost, Fielding, FieldingPost } from '../stats'
+import { TeamsFranchises } from ".";
 
 @Entity({
   database: "lahman_db",
   schema: "Baseball",
   name: "Teams"
 })
-export class Teams {
+class Teams {
   @PrimaryGeneratedColumn()
   @IsNotEmpty()
   public id: number;
-
-  @ManyToOne(() => TeamsFranchises, teamsFranchises => teamsFranchises.teams)
-  public franchise: TeamsFranchises;
 
   @ManyToMany(() => Batting, batting => batting.id)
   @JoinTable({ name: 'Teams_Batting' })
@@ -45,6 +43,9 @@ export class Teams {
   @JoinTable({ name: 'Teams_FieldingPost' })
   @Exclude({ toPlainOnly: true })
   public fieldingPost: FieldingPost[];
+
+  @ManyToOne('TeamsFranchises', 'teams')
+  public franchise: TeamsFranchises;
 
   @Column("integer")
   @IsInt() 
@@ -239,37 +240,5 @@ export class Teams {
   public teamIDretro: string;
 }
 
-@Entity({
-  database: "lahman_db",
-  schema: "Baseball",
-  name: "TeamsFranchises"
-})
-export class TeamsFranchises {
-  @PrimaryGeneratedColumn()
-  @IsDefined()
-  public id: number; 
+export { Teams }
 
-  @OneToMany(() => Teams, teams => teams.franchise)
-  @Exclude({ toPlainOnly: true})
-  public teams: Teams[];
-  
-  @PrimaryColumn({
-    type: "text",
-    unique: true,
-    nullable: false
-  })
-  @IsNotEmpty()
-  public franchID: string
-
-  @Column("text")
-  @IsString()
-  public franchName: string;
-
-  @Column("char")
-  @IsString()
-  public active: string;
-
-  @Column({ type: "text", nullable: true })
-  @IsString()
-  public NAassoc: string;
-}

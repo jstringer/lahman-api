@@ -1,9 +1,9 @@
 import { Connection, createConnection, getConnectionOptions, useContainer } from 'typeorm';
 import { Container } from 'typeorm-typedi-extensions';
 
-export const setupDbConnection = async (): Promise<Connection> => {
+export const setupDbConnection = async (name?: string): Promise<Connection> => {
   useContainer(Container);
-  const config = await getConnectionOptions();
+  const config = await getConnectionOptions(name);
   try { 
     let connection = await createConnection(config);
     console.log(`Connection ${connection.name} established. Driver: ${connection.driver}`);
