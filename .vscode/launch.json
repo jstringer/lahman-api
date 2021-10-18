@@ -11,8 +11,8 @@
       "type": "node-terminal",
       "sourceMaps": true,
       "skipFiles": [
-        "<node_internals>/**/*.js",
-        "${workspaceFolder}/node_modules/**/*.js"
+        "<node_internals>/**/*.js"
+        //"${workspaceFolder}/node_modules/**/*.js"
       ],
       "outFiles": [
         "${workspaceFolder}/dist/**/*.js",

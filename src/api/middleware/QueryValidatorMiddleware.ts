@@ -1,7 +1,8 @@
 import { classToPlain, plainToClass, ClassConstructor, plainToClassFromExist } from "class-transformer";
-import { validate } from "class-validator";
+import { validateOrReject, validate } from "class-validator";
+import { QueryValidationError } from "../errors/QueryValidationError";
 import { NextFunction, Request, Response } from "express";
-import { ExpressMiddlewareInterface } from "routing-controllers";
+import { ExpressMiddlewareInterface, HttpError } from "routing-controllers";
 import { Service } from "typedi";
 import { RequestFactory } from "../controllers/requests/RequestFactory";
 
@@ -11,17 +12,22 @@ export class QueryValidatorMiddleware implements ExpressMiddlewareInterface {
     if (request.query) {
       let queryStringObj = classToPlain(request.query);
       let searchQueryInstance = RequestFactory.getRequestInstance(request.path);
-      let statsQuery = plainToClassFromExist(searchQueryInstance,this.lowercaseKeys(queryStringObj), { excludeExtraneousValues: true });
-      try { 
-        await validate(statsQuery, {
-          skipMissingProperties: true
-        });
-        request.findOptions = statsQuery.mapToFindOptions();
-        next();
-      }
-      catch (errors) {
-        next(errors);
-      }
+      let statsQuery = plainToClassFromExist(searchQueryInstance, this.lowercaseKeys(queryStringObj));
+      validate(statsQuery, {
+          whitelist: true,
+          forbidNonWhitelisted: true,
+          skipMissingProperties: true,
+      }).then( errors => {
+        if (errors.length > 0) {
+          next(new QueryValidationError(errors));
+        } else {
+          request.findOptions = statsQuery.mapToFindOptions();
+          next();
+        }
+      });
+    }
+    else {
+      next();
     }
   }
 

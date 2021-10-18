@@ -8,6 +8,8 @@ import dotenv from 'dotenv';
 import "reflect-metadata";
 import Container from 'typedi';
 
+import { ErrorHandlerMiddleware } from './api/middleware/ErrorHandlerMiddleware'
+
 dotenv.config();
 
 const bootstrapApplication = async () => {
@@ -18,6 +20,8 @@ const bootstrapApplication = async () => {
       cors: true,
       routePrefix: '/api',
       controllers: [path.join(__dirname + '/api/controllers/*.js')],
+      middlewares: [ErrorHandlerMiddleware],
+      //defaultErrorHandler: false,
       classTransformer: true
     });
 

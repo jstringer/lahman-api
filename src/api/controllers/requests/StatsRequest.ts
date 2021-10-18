@@ -1,5 +1,5 @@
 import { Expose, Transform } from "class-transformer";
-import { IsInt, Min, Max, IsString, IsOptional, IsBoolean, IsInstance } from "class-validator";
+import { IsInt, Min, Max, IsString, IsOptional, IsBoolean } from "class-validator";
 import { MoreThanOrEqual, LessThanOrEqual } from "typeorm";
 import { IRequest } from "./IRequest";
 

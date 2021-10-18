@@ -14,13 +14,12 @@ export class PeopleService extends BaseService<People> {
   
   public async getByPlayerId(playerId: string): Promise<People | undefined> {  
     try {
-    let result = await this.peopleRepository.findOne({ playerID: playerId });
-    return result;
-    } catch (error) {
-      console.log(error);
+      let result = await this.peopleRepository.findOne({ playerID: playerId });
+      return result;
+    } catch (err) {
+      console.error(err);
       return undefined;
     }
-  }
-
+}
   //Create player
 }
