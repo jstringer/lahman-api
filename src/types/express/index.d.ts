@@ -1,5 +1,10 @@
 declare namespace Express {
   interface Request {
-    findOptions?: Object
+    findOptions?: Object;
+  }
+  interface Response {
+    results: any[] | any;
+    limit?: number;
+    nextPage?: URL;
   }
 }

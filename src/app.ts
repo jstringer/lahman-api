@@ -20,8 +20,9 @@ const bootstrapApplication = async () => {
       cors: true,
       routePrefix: '/api',
       controllers: [path.join(__dirname + '/api/controllers/*.js')],
-      middlewares: [ErrorHandlerMiddleware],
-      //defaultErrorHandler: false,
+      middlewares: [ 
+        ErrorHandlerMiddleware
+      ],
       classTransformer: true
     });
 

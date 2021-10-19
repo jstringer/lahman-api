@@ -12,19 +12,20 @@ export class PeopleController {
 
   @Get('/player/:playerId')
   public async getByPlayerId(@Param('playerId') playerId: string, @Res() response: Response) {
-    let result = await this.peopleService.getByPlayerId(playerId);
-
-    if (result === undefined) {
+    let results = await this.peopleService.getByPlayerId(playerId);
+    if (results) {
+      response.locals.results = results;
+      return response.status(200).send(response.locals);
+    }
+    else {
       throw new NotFoundError(`playerID ${playerId} does not match any player`);
     }
-
-    return response.status(200).send(result);
   }
 
   // POST new player with player object in Body
   @Post('/player/')
   public async addPlayer(@Req() request: Request, @Res() response: Response) {
-    
+
   }
   
   // etc

@@ -19,6 +19,15 @@ export class TeamsRequest implements IRequest {
   @Max(2019)
   yearmax: number;
 
+  @Expose()
+  @IsOptional()
+  offset: number;
+ 
+  @Expose()
+  @IsOptional()
+  @Min(1)
+  limit: number;
+
   public mapToFindOptions(): Object {
     let findOptions = {
       where: {}

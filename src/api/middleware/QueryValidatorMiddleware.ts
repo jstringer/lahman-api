@@ -19,6 +19,7 @@ export class QueryValidatorMiddleware implements ExpressMiddlewareInterface {
           skipMissingProperties: true,
       }).then( errors => {
         if (errors.length > 0) {
+          console.error(errors);
           next(new QueryValidationError(errors));
         } else {
           request.findOptions = statsQuery.mapToFindOptions();

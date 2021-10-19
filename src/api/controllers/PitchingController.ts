@@ -14,17 +14,13 @@ export class PitchingController {
   @Get('/stats/pitching')
   @UseBefore(QueryValidatorMiddleware)
   public async getPitchingStats(@Req() request: Request, @Res() response: Response) {
-    if(request.findOptions) {
-      let result = await this.pitchingService.getByOptions(request.findOptions);
-      if (result !== undefined) {
-        return response.status(200).send(result);
-      }
-      else {
-       return response.status(404).send("Couldn't find nuthin"); 
-      }
+    let results = await this.pitchingService.getByOptions(request.findOptions);
+    if (results) {
+      response.locals.results = results;
+      return response.status(200).send(response.locals);
     }
     else {
-      return response.send("Paginated data...");
+      return response.status(404).send("Couldn't find nuthin"); 
     }
   }
 }

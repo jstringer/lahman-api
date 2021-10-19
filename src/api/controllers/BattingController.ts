@@ -1,7 +1,8 @@
-import { JsonController, QueryParams, Param, Body, Get, Post, Put, Delete, Req, Res, UseBefore } from 'routing-controllers';
+import { JsonController, QueryParams, Param, Body, Get, Post, Put, Delete, Req, Res, UseBefore, UseInterceptor, UseAfter } from 'routing-controllers';
 import { BattingService } from '../services/BattingService';
 import { Request, Response } from 'express';
 import { QueryValidatorMiddleware } from '../middleware/QueryValidatorMiddleware';
+import { PaginationMiddleware } from '../middleware/PaginationMiddleware';
 import { Service } from 'typedi';
 
 @Service()
@@ -12,16 +13,15 @@ export class BattingController {
   ) {};
   
   @Get('/stats/batting')
-  @UseBefore(QueryValidatorMiddleware)
+  @UseBefore(QueryValidatorMiddleware, PaginationMiddleware)
   public async getBattingStats(@Req() request: Request, @Res() response: Response) {
-    if (request.findOptions) {
-      let result = await this.battingService.getByOptions(request.findOptions);
-      if (result !== undefined) {
-        return response.status(200).send(result);
-      }
+    let results = await this.battingService.getByOptions(request.findOptions ? request.findOptions : null)
+    if (results) {
+      response.locals.results = results;
+      return response.status(200).send(response.locals);
     }
     else {
-      return response.send("Paginated data...");
+      return response.status(404).send('Not found')
     }
   }
 }
